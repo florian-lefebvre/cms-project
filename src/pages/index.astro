@@ -1,16 +1,34 @@
 ---
-
+import { config } from "../lib/test";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body style={{ backgroundColor: "black", color: "white" }}>
+    <pre>{JSON.stringify(config, null, 2)}</pre>
+    {
+      config.collections.map((collection) => (
+        <>
+          <form action="/api/form" method="POST">
+            <h3>{collection.label}</h3>
+            <input name="_collection" value={collection.name} type="hidden" />
+            {collection.fields.map((field) => (
+              <div>
+                <label>{field.label}</label>
+                <input type="text" name={field.name} />
+              </div>
+            ))}
+            <button>Submit</button>
+          </form>
+          <hr />
+        </>
+      ))
+    }
+  </body>
 </html>
