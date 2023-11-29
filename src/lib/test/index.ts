@@ -1,8 +1,15 @@
 import { defineCollection } from "./collection";
 import { defineConfig, resolveConfig } from "./config";
 import { defineField } from "./field";
+import { defineModule } from "./module";
+
+const myModule = defineModule({
+  id: "my-module",
+  setup({ addExtension, addField, addWidget }) {},
+});
 
 export const _config = defineConfig(({}) => ({
+  modules: [myModule],
   collections: [
     defineCollection(({ extensions }) => ({
       name: "posts",

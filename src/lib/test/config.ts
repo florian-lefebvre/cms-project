@@ -1,10 +1,12 @@
 import type { defineCollection } from "./collection";
 import { jsonExtensionAdapter } from "./extension-adapters";
 import { stringField } from "./field";
+import type { DefineModuleParams } from "./module";
 
 export type DefineConfigParams = {};
 export type DefineConfigReturn = {
   collections: Array<ReturnType<typeof defineCollection>>;
+  modules?: Array<DefineModuleParams>;
 };
 
 export const defineConfig = <TReturn extends DefineConfigReturn>(
@@ -16,6 +18,7 @@ export const resolveConfig = (fn: ReturnType<typeof defineConfig>) => {
 
   const b = {
     ...a,
+    modules: a.modules ?? [],
     collections: a.collections.map((fn) =>
       fn({
         extensions: {
