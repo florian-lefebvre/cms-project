@@ -1,5 +1,5 @@
 ---
-import { config } from "../lib/test";
+import { config } from "../lib/test/test";
 ---
 
 <html lang="en">
@@ -12,7 +12,7 @@ import { config } from "../lib/test";
   </head>
   <body style={{ backgroundColor: "black", color: "white" }}>
     <pre>{JSON.stringify(config, null, 2)}</pre>
-    {
+    <!-- {
       config.collections.map((collection) => (
         <>
           <form action="/api/form" method="POST">
@@ -29,6 +29,6 @@ import { config } from "../lib/test";
           <hr />
         </>
       ))
-    }
+    } -->
   </body>
 </html>
