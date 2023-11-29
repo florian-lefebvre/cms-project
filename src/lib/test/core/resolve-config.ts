@@ -1,4 +1,5 @@
 import { resolveField } from ".";
+import { coreExtensionsModule } from "../modules/extensions";
 import type {
   Collection,
   CollectionReturn,
@@ -20,8 +21,9 @@ export const resolveConfig = <
   > = [];
 
   const a = fn({});
+  const modules = [coreExtensionsModule, ...(a.modules ?? [])];
 
-  for (const module of a.modules ?? []) {
+  for (const module of modules) {
     module.setup({
       addExtension: (e) => extensions.push(e),
       addField: (e) => fieldsFns.push(e),
@@ -31,7 +33,7 @@ export const resolveConfig = <
 
   const b = {
     ...a,
-    modules: a.modules ?? [],
+    modules,
     collections: a.collections.map((fn) =>
       fn({
         extensions: Object.fromEntries(
